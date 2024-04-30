@@ -53,3 +53,13 @@ def findentity(dbname, entname):
     result = cursor.fetchall()
     connection.close()
     return result
+
+
+def authorization(dbname, username, password):
+    connection = sqlite3.connect(dbname)
+    cursor = connection.cursor()
+    cursor.execute(f'''SELECT status FROM Users WHERE username = '{username}'
+AND passsword = '{password}' ''')
+    result = cursor.fetchall()
+    connection.close()
+    return result[0][0]
