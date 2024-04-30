@@ -1,8 +1,6 @@
 name--victor
-weapon_in_inventory--5
+inventory--[1, 2, 0, 0, 0, 0, 0, 0, 0]
 health--10
 location--1
-complexity_tick--25
-complexity--2
 very_important_number--3
 score--310.0

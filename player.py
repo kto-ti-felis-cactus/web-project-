@@ -2,7 +2,7 @@ import pygame
 
 
 class Player(pygame.sprite.Sprite):
-    def __init__(self, stats_path, position, image_name, all_sprites):
+    def __init__(self, stats_path, position, image_name, all_sprites, colision_image):
         super().__init__(all_sprites)
         self.stats_path = stats_path
         self.position = position
@@ -10,7 +10,17 @@ class Player(pygame.sprite.Sprite):
         self.player_data = {}
         self.image_class = image_name
         self.rect = self.image_class.image.get_rect()
-        self.mask = pygame.mask.from_surface(self.image_class.image)
+        self.colision_image = colision_image
+        self.mask = pygame.mask.from_surface(self.colision_image)
+
+        class HearColision(pygame.sprite.Sprite):
+            def __init__(self, image):
+                super().__init__()
+                self.image = image
+                self.mask = pygame.mask.from_surface(self.image)
+                self.rect = self.image.get_rect()
+
+        self.hear_colision = HearColision(pygame.transform.scale(self.colision_image, (1234, 1234)))
         self.health = 10
         self.score = 0
         self.update_rect_x_y()

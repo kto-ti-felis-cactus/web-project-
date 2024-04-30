@@ -2,7 +2,9 @@ from PIL import Image, ImageDraw
 from random import randint
 
 
-def start_process_create_map(mode):
+levels = ['0']
+
+def start_process_create_map(mode, name):
     if mode == 0:
         imf = Image.open('data/wall.png')
         img = Image.new('RGBA', (1680, 300))
@@ -17,7 +19,7 @@ def start_process_create_map(mode):
         for i in range(1680 // 50 + 1):
             img.paste(imf, (50 * i, 250))
 
-        img.save('data/board.png')
+        img.save('data/level_board--0--.png')
 
 
 
@@ -375,15 +377,9 @@ def start_process_create_map(mode):
             mat[-4][-1] = '-'
             mat[-4][-2] = '1'
             mat[-4][-3] = '1'
-            '''for i in range(len(mat)):
-                mat[i] = ' '.join(mat[i])
-    
-            print('\n'.join(mat))
-            for i in range(len(rmat)):
-                mat[i] = mat[i].split(' ')'''
             return mat
 
-        def save_level(levelmat, levelname):
+        def save_level(levelmat):
             '''with open(f'{levelname}.txt', 'w', encoding='utf-8') as level:
                 for i in range(len(levelmat)):
                     levelline = ''
@@ -399,20 +395,24 @@ def start_process_create_map(mode):
 
             imf = Image.open('data/wall.png')
             img = Image.new('RGBA', (80 * 50 * 3, 80 * 50 * 3))
+            print(0)
 
             for i in range(len(levelmat)):
                 for ii in range(len(levelmat[i])):
                     if levelmat[i][ii] == '-':
                         img.paste(imf, (50 * ii, 50 * i))
-            img.save('data/board.png')
+            img.save(f'data/level_board--{name}--.png')
+            print(1)
 
-            imf = Image.open('data/floor.png')
+            imf = Image.open('data/floor1.png')
             img = Image.new('RGBA', (80 * 50 * 3, 80 * 50 * 3))
+            print(2)
 
             for i in range(len(levelmat)):
                 for ii in range(len(levelmat[i])):
                     img.paste(imf, (50 * ii, 50 * i))
-            img.save('data/full_floor.png')
+            img.save(f'data/level_floor--{name}--.png')
+            print(3)
             '''idraw = ImageDraw.Draw(img)
 
             a = 1680 // 50
@@ -423,7 +423,7 @@ def start_process_create_map(mode):
             for i in range(1680 // 50 + 1):
                 img.paste(imf, (50 * i, 250))
 
-            img.save('data/board.png')'''
+            img.save('data/level_board--0--.png')'''
 
         def create_room():
             mat = gen_mat()
@@ -473,9 +473,10 @@ def start_process_create_map(mode):
 
             for i in range(len(rmat)):
                 rmat[i] = rmat[i].split(' ')
-            save_level(rmat, '1')
+            save_level(rmat)
 
-        create_level()
+        if name not in levels:
+            create_level()
     elif mode == 2:
         img1 = Image.new('RGBA', (50, 50))
         idraw1 = ImageDraw.Draw(img1)
@@ -485,5 +486,5 @@ def start_process_create_map(mode):
         img1.save('data/wall.png')
 
 
-#start_process_create_map(2)
-#start_process_create_map(1)
+#start_process_create_map(2, '1')
+start_process_create_map(1, '1')
